@@ -19,7 +19,7 @@ Snow s;
 int frameCountDepart = 0; //la frame à laquelle on a débuté le retrait des fleurs
   
 void setup() {//fonction d'initialisation de la scène
-  size(LARGEUR, HAUTEUR, P2D); 
+  size(1024, 576, P2D); 
   ellipseMode(RADIUS);//au lieu d'utiliser (x,y, largeur, hauteur) on a (x,y, moitiéLargeur, moitiéHauteur)
   colorMode(HSB, 100);//mode TSL au lieu de RVB
  
