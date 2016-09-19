@@ -1,7 +1,7 @@
 class Fleur {
  
- int rayon;
- int nbPetales;
+ int rayon; //de la fleur
+ int nbPetales; 
  float angleEcart; // pour le dessin des pétales
  float angle; //angle de rotation en cours
  int rythme; //l'angle en cours est incrémenté
@@ -11,6 +11,7 @@ class Fleur {
 
  PImage tige;  
   
+ //constructeur par défaut
  Fleur(){
     rayon = 100; 
     nbPetales = 6;
@@ -19,27 +20,38 @@ class Fleur {
    
     actualiseFleur(0,0);// initialise les autres infos de la fleur => instructions communes aux fleurs
     //par défaut et aux fleurs personnalisées
+       
+   //ajoute la tige
+   tige = loadImage("Tige.png");
  }
-  Fleur(int r, int nbP, int ry, int px, int py){
-    if(r >= 20) { rayon = r; } else rayon = 20; 
-    if(nbP > 3) { nbPetales = nbP; } else nbP = 4; 
-    rythme = (ry == 0)?10:ry;
+ 
+ //constructeur 
+ Fleur(int r, int nbP, int ry, int px, int py, PImage nvtige){
+   
+    if(r >= 20) { rayon = r; } else rayon = 20; //pour éviter que le rayon soit trop petit
+    if(nbP > 3) { nbPetales = nbP; } else nbP = 4;  //gère le minimum de pétales
+    rythme = (ry == 0)?10:ry; 
     nbPetales = nbP;
+    
+    tige = nvtige;
+    
     actualiseFleur(px,py);
 
  }
 
  private void dessin(){   
-   fill(h,s,b);
+   fill(h,s,b);//choix de la couleur
+   
     for(int i = 0 ; i < (nbPetales*2) ; i = i+2) {
        bezier(0, 0, rayon*cos((i-1)*angleEcart), rayon*sin((i-1)*angleEcart),rayon*cos((i+2)*angleEcart), rayon*sin((i+2)*angleEcart), 0, 0);
      // triangle(pX,pY, pX+rayon*cos((i)*angleEcart), pY+rayon*sin((i)*angleEcart),pX+rayon*cos((i+1)*angleEcart), pY+rayon*sin((i+1)*angleEcart));
    
     }
-    fill(15,100,b);
-    ellipse(0,0,rayon/10,rayon/10);
+    fill(15,100,b);//couleur du centre de la fleur
+    ellipse(0,0,rayon/10,rayon/10);//dessin
     noFill();
  }
+ 
  private void actualiseFleur(int px, int py) {
    //cette fonction exécute des instructions qui sont communes aux deux constructeurs (ou presque). 
    //elle contient notamment tout ce qui est calculé ou généré aléatoirement (angleEcart, angle, hsb, ...)
@@ -48,11 +60,11 @@ class Fleur {
    angleEcart = TWO_PI/(nbPetales*2);
    angle=0;
    
+   //gère la teinte, la saturation et la luminosité de la fleur de manière à avoir une fleur dans les teintes orangées et assez saturées
    h = int(random(3,15));
    s = int(random(80,100));
    b = 100;
-   
-   tige = loadImage("Tige.png");
+
    
  }
  private void tige() {

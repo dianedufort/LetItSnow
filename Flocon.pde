@@ -1,19 +1,25 @@
 class Flocon {
   
+  //position
   int x;
   int y;
-  int vitesse;
-  int balancement; 
   
-  float miniRotation ;
-  float scale ; 
+  //mouvement
+  int vitesse; //en y
+  int balancement; //en x
   
-  PImage flocon;
+  float miniRotation ; //effet de rotation
+  float scale ; //taille
   
-  Flocon() {
+  PImage flocon;//png
+  
+  Flocon(PImage image) {
      y = -30 + int(random(-120,120)); //à -30px (+/-5) dessus de la scène
-     x = int(random(0, LetItSnow.LARGEUR));
-     flocon = loadImage("data/snowflake.png");
+     x = int(random(0, LetItSnow.LARGEUR));//quelque part le long de la scène
+     
+     flocon = image;
+     
+     //arbitraire
      scale = random(0.5,1.25);
      vitesse = int(random(2, 5));
   }
@@ -26,8 +32,8 @@ class Flocon {
   
   void anime() {
      pushMatrix();
-       y += vitesse;
-       if(y > LetItSnow.HAUTEUR) { 
+       y += vitesse;//gère le mouvement
+       if(y > LetItSnow.HAUTEUR) { //s'il est sorti de la scène, le replacer en haut et à un x aléatoire pour qu'il redescende
           y = -30;
           x = int(random(0, LetItSnow.LARGEUR));
        } 

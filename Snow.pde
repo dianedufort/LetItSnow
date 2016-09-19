@@ -1,14 +1,16 @@
 class Snow {
+//cette classe permet de gérer facilement la chute des flocons
 
- Flocon[] neige = new Flocon[30] ; 
+ Flocon[] neige = new Flocon[30] ; //tableau de flocons
  
  Snow() {
  
-    for(int i = 0; i < neige.length; i++) {
-       neige[i] = new Flocon(); 
+    PImage flocon = loadImage("data/snowflake.png"); //pour ne le charger qu'une seule fois pour tous les flocons
+    for(int i = 0; i < neige.length; i++) {//crée chaque flocon
+       neige[i] = new Flocon(flocon); 
     }
  } 
- void anime() {
+ void anime() {//les affiche
      for(int i = 0; i < neige.length; i++) {
        neige[i].anime(); 
     }

@@ -7,7 +7,7 @@ int nbFleurs = 0;
 
 PImage imgEte;
 PImage imgHiver;
-
+PImage tige ;
 //FLOU
 PShape fonduNoir;
 int alphaFondu = 0;
@@ -25,6 +25,7 @@ void setup() {//fonction d'initialisation de la scène
  
   imgEte = loadImage("data/9178790558_ccb2c32eb6_k.jpg");//mon fond est chargé
   imgHiver = loadImage("data/4333393031_044f34201e_b.jpg");//mon fond est chargé
+  tige = loadImage("Tige.png");
   
   imgEte.resize(LARGEUR, HAUTEUR);//pas trop de déformation
   
@@ -57,6 +58,8 @@ void dessineFondScene() {
    }
   }
 }
+
+//le fondu au noir entre deux saisons
 void dessineFondu() { 
      int coeff = ete?1:-1;
      alphaFondu = floor(alphaFondu + (coeff * ecartFlou));
@@ -70,11 +73,13 @@ void dessineFondu() {
      }
        
 }
+
+//pression souris
 void mousePressed() {
  
   if(ete && !fondu) { //si c'est l'été et que le fondu est désactivé 
     if(nbFleurs < MAXFLEURS) //dessin fleur 
-      tabFleurs[nbFleurs++] = new Fleur(int(random(30,150)), int(random(4,20)), int(random(-15,15)), mouseX, mouseY);   
+      tabFleurs[nbFleurs++] = new Fleur(int(random(30,150)), int(random(4,20)), int(random(-15,15)), mouseX, mouseY, tige);   
     else {//si max atteint
       fondu = true;//déclenche fondu   
       s = new Snow(); //on déclenche la neige
@@ -84,6 +89,7 @@ void mousePressed() {
 
 }  
 
+//gestion événement clavier
 void keyPressed() {
    if (key ==  's') {
      save("data/capture_" + int(random(999999)) + ".jpg");
